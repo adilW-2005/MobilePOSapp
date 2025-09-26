@@ -1,0 +1,1 @@
+Charity Stack mobile app for in-person donation processing
