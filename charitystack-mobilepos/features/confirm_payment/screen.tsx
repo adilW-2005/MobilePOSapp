@@ -1,11 +1,8 @@
 import React, { useMemo, useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router, useLocalSearchParams } from "expo-router";
-
-function formatUSD(n: number) {
-  return `$${n.toFixed(2)}`;
-}
+import { useLocalSearchParams } from "expo-router";
+import { BackButton, DonationSummary, FeeToggle, PaymentButtons } from "./components";
 
 export default function ConfirmPayment() {
   const { amount = "5", fundraiserName = "General Campaign", fundName = "Masjid Operations" } =
@@ -22,101 +19,35 @@ export default function ConfirmPayment() {
     <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
       {/* Header */}
       <View className="px-4 pt-1 pb-2 flex-row items-center justify-between">
-        <Pressable onPress={() => router.back()} hitSlop={10} className="w-6 h-6 items-center justify-center">
-          <Text className="text-2xl text-slate-900">‹</Text>
-        </Pressable>
+        <BackButton />
         <Text className="text-xl text-slate-900">Select a Payment Method</Text>
         <View className="w-6" />
       </View>
 
       {/* Summary card */}
-      <View className="px-4">
-        <View className="bg-white rounded-md border border-black/10 shadow-sm p-4">
-          <View className="flex-row">
-            <View className="flex-1">
-              <Text className="text-base text-slate-900">{String(fundraiserName)}</Text>
-              <Text className="text-xs text-slate-500 mt-0.5">{String(fundName)}</Text>
-            </View>
-            <Text className="text-4xl text-slate-900 font-semibold">
-              {formatUSD(baseAmount)}
-            </Text>
-          </View>
-        </View>
-      </View>
+      <DonationSummary
+        fundraiserName={String(fundraiserName)}
+        fundName={String(fundName)}
+        amount={baseAmount}
+      />
 
       {/* Fee toggle + total */}
-      <View className="px-4 mt-6">
-        <Pressable
-          onPress={() => setCoverFee((v) => !v)}
-          className="rounded-md"
-          hitSlop={8}
-        >
-          <View className="flex-row items-center gap-3">
-            {/* Checkbox */}
-            <View
-              className={[
-                "w-5 h-5 rounded-[3px] border items-center justify-center",
-                coverFee ? "bg-blue-600 border-blue-600" : "bg-white border-black/20",
-              ].join(" ")}
-            >
-              {coverFee ? <Text className="text-white text-[12px]">✓</Text> : null}
-            </View>
-            <Text className="text-base text-slate-900">
-              Yes, I’ll cover the transaction fee
-            </Text>
-          </View>
-        </Pressable>
-
-        {/* Divider */}
-        <View className="h-[1px] bg-zinc-300 my-3" />
-
-        {/* Total row */}
-        <View className="flex-row items-baseline justify-between">
-          <Text className="text-base text-slate-900">Total</Text>
-          <Text className="text-2xl text-slate-900">{formatUSD(total)}</Text>
-        </View>
-      </View>
+      <FeeToggle
+        coverFee={coverFee}
+        onToggle={() => setCoverFee((v) => !v)}
+        fee={fee}
+        total={total}
+      />
 
       {/* Spacer to push CTAs to bottom */}
       <View className="flex-1" />
 
-      {/* CTA: Tap to Pay */}
-      <Pressable
-        onPress={() => {
-          router.push({
-            pathname: "/(tabs)/contact_info",
-            params: {
-              amount: String(total),
-              fundraiserName: String(fundraiserName),
-              fundName: String(fundName),
-              paymentMethod: "tap_to_pay"
-            }
-          });
-        }}
-        className="h-11 mx-4 mb-2 rounded-md bg-blue-600 items-center justify-center shadow-sm"
-        style={({ pressed }) => (pressed ? { opacity: 0.9 } : undefined)}
-      >
-        <Text className="text-white text-base font-semibold">Tap to Pay</Text>
-      </Pressable>
-
-      {/* Secondary link */}
-      <Pressable
-        onPress={() => {
-          router.push({
-            pathname: "/(modals)/manual_payment",
-            params: {
-              amount: String(total),
-              fundraiserName: String(fundraiserName),
-              fundName: String(fundName)
-            }
-          });
-        }}
-        className="items-center mb-3"
-      >
-        <Text className="text-blue-700">Manual Payment</Text>
-      </Pressable>
-
-
+      {/* Payment buttons */}
+      <PaymentButtons
+        total={total}
+        fundraiserName={String(fundraiserName)}
+        fundName={String(fundName)}
+      />
     </SafeAreaView>
   );
 }
