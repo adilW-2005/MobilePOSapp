@@ -5,7 +5,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { display: "none" }, // Hide tab bar since this appears to be a single screen flow
+        tabBarStyle: { display: "none" },
       }}
     >
       <Tabs.Screen

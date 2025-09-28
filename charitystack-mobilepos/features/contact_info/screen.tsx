@@ -33,7 +33,19 @@ function Checkbox({
 }
 
 export default function ContactInfo() {
-  const { org = "Nueces Mosque" } = useLocalSearchParams<{ org?: string }>();
+  const { 
+    org = "Nueces Mosque",
+    amount,
+    fundraiserName,
+    fundName,
+    paymentMethod
+  } = useLocalSearchParams<{ 
+    org?: string;
+    amount?: string;
+    fundraiserName?: string;
+    fundName?: string;
+    paymentMethod?: string;
+  }>();
 
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
@@ -46,7 +58,7 @@ export default function ContactInfo() {
   const canSubmit = first.trim().length > 0 && last.trim().length > 0;
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50">
+    <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
       <KeyboardAvoidingView
         className="flex-1"
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -97,7 +109,7 @@ export default function ContactInfo() {
           <View className="mt-4 flex-row items-center gap-2">
             <Checkbox checked={hideName} onToggle={() => setHideName((v) => !v)} />
             <Text className="text-base text-slate-900">
-              Don’t display my name anywhere publicly
+              Don't display my name anywhere publicly
             </Text>
           </View>
 
@@ -142,17 +154,30 @@ export default function ContactInfo() {
         <Pressable
           disabled={!canSubmit}
           onPress={() => {
-            // TODO: post/save & proceed
-            // router.push("/(donations)/receipt");
-            console.log({
-              first,
-              last,
-              organization,
-              email,
-              phone,
-              hideName,
-              allowContact,
-            });
+            const donationData = {
+              donor: {
+                first,
+                last,
+                organization,
+                email,
+                phone,
+                hideName,
+                allowContact,
+              },
+              donation: {
+                amount,
+                fundraiserName,
+                fundName,
+                paymentMethod
+              }
+            };
+            console.log("Donation completed:", donationData);
+            
+            // Show success message and reset flow
+            alert(`Thank you ${first}! Your donation of $${amount} to ${fundraiserName} - ${fundName} has been processed successfully.`);
+            
+            // Navigate back to start
+            router.push("/(tabs)/select_fundraiser");
           }}
           className={[
             "h-11 mx-4 mb-4 rounded-md items-center justify-center",
@@ -162,9 +187,6 @@ export default function ContactInfo() {
         >
           <Text className="text-white text-base font-semibold">Confirm</Text>
         </Pressable>
-
-        {/* iOS home indicator */}
-        <View className="self-center w-32 h-[5px] bg-black rounded-full mb-2" />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

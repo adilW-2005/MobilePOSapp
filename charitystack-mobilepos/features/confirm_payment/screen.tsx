@@ -19,7 +19,7 @@ export default function ConfirmPayment() {
   const total = useMemo(() => (coverFee ? baseAmount + fee : baseAmount), [coverFee, baseAmount, fee]);
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50">
+    <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
       {/* Header */}
       <View className="px-4 pt-1 pb-2 flex-row items-center justify-between">
         <Pressable onPress={() => router.back()} hitSlop={10} className="w-6 h-6 items-center justify-center">
@@ -83,8 +83,15 @@ export default function ConfirmPayment() {
       {/* CTA: Tap to Pay */}
       <Pressable
         onPress={() => {
-          // TODO: kick off Tap to Pay flow
-          // router.push("/(donations)/processing");
+          router.push({
+            pathname: "/(tabs)/contact_info",
+            params: {
+              amount: String(total),
+              fundraiserName: String(fundraiserName),
+              fundName: String(fundName),
+              paymentMethod: "tap_to_pay"
+            }
+          });
         }}
         className="h-11 mx-4 mb-2 rounded-md bg-blue-600 items-center justify-center shadow-sm"
         style={({ pressed }) => (pressed ? { opacity: 0.9 } : undefined)}
@@ -95,16 +102,21 @@ export default function ConfirmPayment() {
       {/* Secondary link */}
       <Pressable
         onPress={() => {
-          // TODO: manual entry route
-          // router.push({ pathname: "/(donations)/manual-payment", params: { amount: String(total) } });
+          router.push({
+            pathname: "/(modals)/manual_payment",
+            params: {
+              amount: String(total),
+              fundraiserName: String(fundraiserName),
+              fundName: String(fundName)
+            }
+          });
         }}
         className="items-center mb-3"
       >
         <Text className="text-blue-700">Manual Payment</Text>
       </Pressable>
 
-      {/* iOS home indicator (visual only) */}
-      <View className="self-center w-32 h-[5px] bg-black rounded-full mb-2" />
+
     </SafeAreaView>
   );
 }

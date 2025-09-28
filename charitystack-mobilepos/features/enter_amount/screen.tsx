@@ -38,7 +38,7 @@ export default function EnterAmount() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50">
+    <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
       {/* Top banner with selection */}
       <View className="bg-blue-100">
         <View className="px-3 py-2 mx-2 mt-3 mb-2 bg-blue-100 rounded-md border border-black/10 flex-row items-center justify-between">
@@ -72,7 +72,16 @@ export default function EnterAmount() {
             </Text>
           </Pressable>
           <Pressable
-            onPress={() => setRepeat("recurring")}
+            onPress={() => {
+              setRepeat("recurring");
+              router.push({
+                pathname: "/(modals)/frequency_selector",
+                params: {
+                  value: "Monthly",
+                  returnTo: "/(tabs)/enter_amount"
+                }
+              });
+            }}
             className={[
               "flex-1 px-5 py-2.5 rounded-md items-center justify-center",
               repeat === "recurring" ? "bg-blue-100" : "bg-white",
@@ -105,8 +114,15 @@ export default function EnterAmount() {
       <Pressable
         disabled={!isValid}
         onPress={() => {
-          // TODO: push to next step with params
-          // router.push({ pathname: "/(donations)/review", params: { amount, repeat } });
+          router.push({
+            pathname: "/(tabs)/confirm_payment",
+            params: {
+              amount: display,
+              repeat: repeat,
+              fundraiserName: String(fundraiserName),
+              fundName: String(fundName)
+            }
+          });
         }}
         className={[
           "h-11 mx-4 mt-auto mb-4 rounded-md items-center justify-center",
@@ -117,8 +133,7 @@ export default function EnterAmount() {
         <Text className="text-white text-base font-semibold">Continue</Text>
       </Pressable>
 
-      {/* iOS home indicator */}
-      <View className="self-center w-32 h-[5px] bg-black rounded-full mb-2" />
+
     </SafeAreaView>
   );
 }

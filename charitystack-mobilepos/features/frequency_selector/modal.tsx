@@ -16,11 +16,10 @@ export default function FrequencySelector() {
 
   function onSelect(next: Frequency) {
     setSelected(next);
-    if (returnTo) {
-      router.replace({ pathname: String(returnTo), params: { frequency: next } });
-    } else {
-      router.back();
-    }
+    // Close the modal and return to the previous screen
+    router.dismiss();
+    // Note: In a real app, you'd pass the frequency back to the calling screen
+    // For now, we'll just close the modal
   }
 
   return (

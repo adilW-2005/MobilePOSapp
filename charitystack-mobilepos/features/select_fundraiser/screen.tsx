@@ -27,18 +27,16 @@ function SearchBar({
   placeholder?: string;
 }) {
   return (
-    <View className="px-4 pt-2 pb-3">
-      <TextInput
-        value={value}
-        onChangeText={onChangeText}
-        placeholder={placeholder}
-        placeholderTextColor="#6B7280"
-        className="
-          bg-slate-100 border border-black/10 rounded-md
-          px-3 py-2 text-base text-slate-900
-        "
-      />
-    </View>
+    <TextInput
+      value={value}
+      onChangeText={onChangeText}
+      placeholder={placeholder}
+      placeholderTextColor="#6B7280"
+      className="
+        bg-slate-100 border border-black/10 rounded-md
+        px-3 py-3 text-base text-slate-900
+      "
+    />
   );
 }
 
@@ -81,7 +79,7 @@ function PrimaryButton({
       disabled={disabled}
       onPress={onPress}
       className={[
-        "h-11 mx-4 mb-4 rounded-md items-center justify-center",
+        "h-12 rounded-md items-center justify-center",
         disabled ? "bg-blue-600/50" : "bg-blue-600",
         "shadow-sm",
       ].join(" ")}
@@ -113,7 +111,7 @@ export default function SelectFundraiser() {
   }, [q]);
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50">
+    <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
       {/* Header */}
       <View className="px-4 pt-1 pb-2 flex-row items-center justify-between">
         <BackButton />
@@ -122,35 +120,48 @@ export default function SelectFundraiser() {
       </View>
 
       {/* Search */}
-      <SearchBar value={q} onChangeText={setQ} />
+      <View className="px-4 pb-2">
+        <SearchBar value={q} onChangeText={setQ} />
+      </View>
 
       {/* List */}
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}
-        ItemSeparatorComponent={() => <View className="h-3" />}
-        renderItem={({ item }) => (
-          <FundraiserCard
-            title={item.name}
-            selected={item.id === selected}
-            onPress={() => setSelected(item.id)}
-          />
-        )}
-      />
+      <View className="flex-1 px-4">
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={{ paddingBottom: 24 }}
+          ItemSeparatorComponent={() => <View className="h-3" />}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <FundraiserCard
+              title={item.name}
+              selected={item.id === selected}
+              onPress={() => setSelected(item.id)}
+            />
+          )}
+        />
+      </View>
 
       {/* CTA */}
-      <PrimaryButton
-        title="Continue"
-        disabled={!selected}
-        onPress={() => {
-          if (!selected) return;
-          // TODO: router.push({ pathname: "/next", params: { fundraiserId: selected } })
-        }}
-      />
+      <View className="px-4 pb-8">
+        <PrimaryButton
+          title="Continue"
+          disabled={!selected}
+          onPress={() => {
+            if (!selected) return;
+            const selectedFundraiser = ALL.find(f => f.id === selected);
+            router.push({
+              pathname: "/(tabs)/select_fund",
+              params: {
+                fundraiserId: selected,
+                fundraiserName: selectedFundraiser?.name || ""
+              }
+            });
+          }}
+        />
+      </View>
 
-      {/* iOS home indicator bar (purely visual) */}
-      <View className="self-center w-32 h-[5px] bg-black rounded-full mb-2" />
+
     </SafeAreaView>
   );
 }

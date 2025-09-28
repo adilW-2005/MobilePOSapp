@@ -1,9 +1,15 @@
 import React, { useMemo, useState } from "react";
 import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 export default function ManualPayment() {
+  const { amount, fundraiserName, fundName } = useLocalSearchParams<{
+    amount?: string;
+    fundraiserName?: string;
+    fundName?: string;
+  }>();
+
   const [card, setCard] = useState("");
   const [exp, setExp] = useState("");   // MM/YY
   const [cvc, setCvc] = useState("");
@@ -102,7 +108,16 @@ export default function ManualPayment() {
             onPress={() => {
               // TODO: send to your payment gateway tokenization (Stripe, Adyen, etc.)
               // Never handle raw card data yourself in production.
-              router.back();
+              router.dismiss();
+              router.push({
+                pathname: "/(tabs)/contact_info",
+                params: {
+                  amount: String(amount),
+                  fundraiserName: String(fundraiserName),
+                  fundName: String(fundName),
+                  paymentMethod: "manual_card"
+                }
+              });
             }}
             className={[
               "h-11 mt-4 rounded-md items-center justify-center",
