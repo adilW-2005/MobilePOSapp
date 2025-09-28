@@ -9,6 +9,7 @@ import {
   ContinueButton,
   Key 
 } from "./components";
+import { FrequencyModal, Frequency } from "../frequency_selector/components";
 
 export default function EnterAmount() {
   // optionally receive from previous screen
@@ -17,6 +18,8 @@ export default function EnterAmount() {
 
   const [amount, setAmount] = useState<string>("5");      // prefilled like mock
   const [repeat, setRepeat] = useState<"one" | "recurring">("one");
+  const [frequency, setFrequency] = useState<Frequency>("Monthly");
+  const [showFrequencyModal, setShowFrequencyModal] = useState(false);
 
   const display = useMemo(() => (amount.length ? amount : "0"), [amount]);
   const isValid = useMemo(() => Number(display) > 0, [display]);
@@ -47,10 +50,19 @@ export default function EnterAmount() {
       params: {
         amount: display,
         repeat: repeat,
+        frequency: repeat === "recurring" ? frequency : undefined,
         fundraiserName: String(fundraiserName),
         fundName: String(fundName)
       }
     });
+  };
+
+  const handleOpenFrequencyModal = () => {
+    setShowFrequencyModal(true);
+  };
+
+  const handleFrequencySelect = (selectedFrequency: Frequency) => {
+    setFrequency(selectedFrequency);
   };
 
   return (
@@ -68,6 +80,7 @@ export default function EnterAmount() {
       <RepeatSelector
         repeat={repeat}
         onSelectRepeat={setRepeat}
+        onOpenFrequencyModal={handleOpenFrequencyModal}
       />
 
       {/* Keypad */}
@@ -77,6 +90,14 @@ export default function EnterAmount() {
       <ContinueButton
         disabled={!isValid}
         onPress={handleContinue}
+      />
+
+      {/* Frequency Modal Overlay */}
+      <FrequencyModal
+        visible={showFrequencyModal}
+        selected={frequency}
+        onSelect={handleFrequencySelect}
+        onClose={() => setShowFrequencyModal(false)}
       />
     </SafeAreaView>
   );

@@ -1,25 +1,20 @@
 import React from "react";
 import { View, Text, Pressable } from "react-native";
-import { router } from "expo-router";
 
 interface RepeatSelectorProps {
   repeat: "one" | "recurring";
   onSelectRepeat: (repeat: "one" | "recurring") => void;
+  onOpenFrequencyModal?: () => void;
 }
 
 export function RepeatSelector({
   repeat,
   onSelectRepeat,
+  onOpenFrequencyModal,
 }: RepeatSelectorProps) {
   const handleRecurringPress = () => {
     onSelectRepeat("recurring");
-    router.push({
-      pathname: "/(modals)/frequency_selector",
-      params: {
-        value: "Monthly",
-        returnTo: "/(tabs)/enter_amount"
-      }
-    });
+    onOpenFrequencyModal?.();
   };
 
   return (

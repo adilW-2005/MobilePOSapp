@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, router } from "expo-router";
-import { ModalBackdrop, BottomSheet, Frequency } from "./components";
+import { BottomSheet, Frequency } from "./components";
 
 export default function FrequencySelector() {
   const { value, returnTo } = useLocalSearchParams<{
@@ -20,8 +20,7 @@ export default function FrequencySelector() {
   }
 
   return (
-    <SafeAreaView className="flex-1">
-      <ModalBackdrop />
+    <SafeAreaView className="flex-1 bg-white">
       <BottomSheet
         selected={selected}
         onSelect={onSelect}

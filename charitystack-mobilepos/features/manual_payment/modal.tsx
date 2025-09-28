@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
-import { ModalBackdrop, BottomSheet } from "./components";
+import { BottomSheet } from "./components";
 
 export default function ManualPayment() {
   const { amount, fundraiserName, fundName } = useLocalSearchParams<{
@@ -52,13 +52,10 @@ export default function ManualPayment() {
   };
 
   return (
-    <SafeAreaView className="flex-1">
-      <ModalBackdrop />
-
-      {/* Sheet */}
+    <SafeAreaView className="flex-1 bg-white">
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
-        className="absolute left-0 right-0 bottom-0 px-4 pb-6"
+        className="flex-1 px-4 pb-6"
       >
         <BottomSheet
           card={card}

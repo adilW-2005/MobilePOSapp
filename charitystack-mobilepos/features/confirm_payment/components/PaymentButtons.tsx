@@ -6,12 +6,14 @@ interface PaymentButtonsProps {
   total: number;
   fundraiserName: string;
   fundName: string;
+  onOpenManualPayment?: () => void;
 }
 
 export function PaymentButtons({
   total,
   fundraiserName,
   fundName,
+  onOpenManualPayment,
 }: PaymentButtonsProps) {
   const handleTapToPay = () => {
     router.push({
@@ -26,14 +28,7 @@ export function PaymentButtons({
   };
 
   const handleManualPayment = () => {
-    router.push({
-      pathname: "/(modals)/manual_payment",
-      params: {
-        amount: String(total),
-        fundraiserName: String(fundraiserName),
-        fundName: String(fundName)
-      }
-    });
+    onOpenManualPayment?.();
   };
 
   return (
