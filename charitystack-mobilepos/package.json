@@ -42,7 +42,8 @@
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
-    "@types/react": "~19.1.0",
+    "@types/react": "~19.1.10",
+    "@types/react-native": "^0.72.8",
     "babel-preset-expo": "^54.0.3",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
