@@ -18,7 +18,7 @@ export function RepeatSelector({
   };
 
   return (
-    <View className="px-4 mt-6">
+    <View className="px-4 mt-14">
       <View className="p-[1px] bg-slate-100 rounded-md border border-black/10 flex-row">
         <Pressable
           onPress={() => onSelectRepeat("one")}

@@ -16,13 +16,13 @@ export function FrequencyOption({
     <Pressable
       onPress={onSelect}
       className={[
-        "h-16 px-5 py-3 rounded-md border shadow-sm justify-center",
-        selected ? "bg-blue-100 border-black/10" : "bg-slate-50 border-black/10",
+        "h-16 px-6 py-4 rounded-lg border border-black/10 justify-center",
+        selected ? "bg-blue-100" : "bg-white",
       ].join(" ")}
     >
       <Text
         className={[
-          "text-base text-slate-900",
+          "text-lg text-slate-900",
           selected ? "font-semibold" : "font-normal",
         ].join(" ")}
       >

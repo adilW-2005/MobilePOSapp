@@ -15,18 +15,18 @@ export function BottomSheet({
   onSelect,
 }: BottomSheetProps) {
   return (
-    <View className="flex-1 px-4 pb-6">
-      <View className="bg-white rounded-t-md border border-black/10 shadow-sm px-5 py-3.5">
+    <View>
+      <View className="bg-white rounded-t-2xl px-6 py-5 pb-10">
         {/* Grabber */}
-        <View className="items-center mb-2">
+        <View className="items-center mb-4">
           <View className="w-16 h-[5px] bg-black/80 rounded-full" />
         </View>
 
         {/* Title */}
-        <Text className="text-center text-xl text-slate-900 mb-3">Frequency</Text>
+        <Text className="text-center text-2xl text-slate-900 mb-6">Frequency</Text>
 
         {/* Options */}
-        <View className="gap-2">
+        <View className="gap-3">
           {OPTIONS.map((opt) => (
             <FrequencyOption
               key={opt}

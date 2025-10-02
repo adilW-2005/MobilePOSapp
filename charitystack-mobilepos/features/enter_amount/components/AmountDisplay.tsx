@@ -7,7 +7,7 @@ interface AmountDisplayProps {
 
 export function AmountDisplay({ amount }: AmountDisplayProps) {
   return (
-    <View className="items-center mt-6">
+    <View className="items-center mt-20">
       <Text className="text-7xl text-black">${amount}</Text>
     </View>
   );
