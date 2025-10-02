@@ -69,13 +69,13 @@ export default function ContactInfo() {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         {/* Header */}
-        <View className="px-4 pt-1 pb-2 items-center">
+        <View className="px-4 pt-8 pb-8 items-center">
           <Text className="text-xl text-slate-900">Confirm Contact Information</Text>
         </View>
 
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 24 }}
+          contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 0, paddingBottom: 24 }}
         >
           <ContactForm
             first={first}

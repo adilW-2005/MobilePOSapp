@@ -46,8 +46,8 @@ export function ContactForm({
           <TextInput
             value={first}
             onChangeText={setFirst}
-            placeholder="First"
-            className="bg-slate-100 border border-black/10 rounded-md px-3 py-2 text-base text-slate-900"
+            placeholder=""
+            className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
           />
         </View>
         <View className="flex-1">
@@ -55,8 +55,8 @@ export function ContactForm({
           <TextInput
             value={last}
             onChangeText={setLast}
-            placeholder="Last"
-            className="bg-slate-100 border border-black/10 rounded-md px-3 py-2 text-base text-slate-900"
+            placeholder=""
+            className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
           />
         </View>
       </View>
@@ -67,8 +67,8 @@ export function ContactForm({
         <TextInput
           value={organization}
           onChangeText={setOrganization}
-          placeholder="Organization (optional)"
-          className="bg-slate-100 border border-black/10 rounded-md px-3 py-2 text-base text-slate-900"
+          placeholder=""
+          className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
         />
       </View>
 
@@ -89,8 +89,8 @@ export function ContactForm({
             onChangeText={setEmail}
             keyboardType="email-address"
             autoCapitalize="none"
-            placeholder="name@example.com"
-            className="bg-slate-100 border border-black/10 rounded-md px-3 py-2 text-base text-slate-900"
+            placeholder=""
+            className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
           />
         </View>
         <View className="flex-1">
@@ -99,8 +99,8 @@ export function ContactForm({
             value={phone}
             onChangeText={setPhone}
             keyboardType="phone-pad"
-            placeholder="(555) 555-5555"
-            className="bg-slate-100 border border-black/10 rounded-md px-3 py-2 text-base text-slate-900"
+            placeholder=""
+            className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
           />
         </View>
       </View>
