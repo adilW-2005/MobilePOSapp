@@ -37,8 +37,7 @@ export default function ManualPayment() {
   }, [card, exp, cvc, zip]);
 
   const handleConfirm = () => {
-    // TODO: send to your payment gateway tokenization (Stripe, Adyen, etc.)
-    // Never handle raw card data yourself in production.
+    // TODO: send to payment gateway tokenization   
     router.dismiss();
     router.push({
       pathname: "/(tabs)/contact_info",

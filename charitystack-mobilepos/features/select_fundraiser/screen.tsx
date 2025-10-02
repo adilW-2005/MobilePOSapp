@@ -13,7 +13,7 @@ const ALL: Fundraiser[] = [
 
 export default function SelectFundraiser() {
   const [q, setQ] = useState("");
-  const [selected, setSelected] = useState<string | null>("2"); // like screenshot
+  const [selected, setSelected] = useState<string | null>("2");
 
   const data = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -34,7 +34,7 @@ export default function SelectFundraiser() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
+    <SafeAreaView className="flex-1 bg-slate-50">
       {/* Header */}
       <View className="px-4 pt-1 pb-2 flex-row items-center justify-between">
         <BackButton />

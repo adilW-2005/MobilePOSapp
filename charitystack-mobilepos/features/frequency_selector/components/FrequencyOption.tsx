@@ -19,7 +19,6 @@ export function FrequencyOption({
         "h-16 px-5 py-3 rounded-md border shadow-sm justify-center",
         selected ? "bg-blue-100 border-black/10" : "bg-slate-50 border-black/10",
       ].join(" ")}
-      style={({ pressed }) => (pressed ? { opacity: 0.95 } : undefined)}
     >
       <Text
         className={[
