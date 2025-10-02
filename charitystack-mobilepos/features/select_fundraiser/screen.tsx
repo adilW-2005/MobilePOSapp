@@ -2,28 +2,22 @@ import React, { useMemo, useState } from "react";
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
-import { BackButton, SearchBar, PrimaryButton, FundraiserList, Fundraiser } from "./components";
-
-const ALL: Fundraiser[] = [
-  { id: "1", name: "Support Nueces Reconstruction" },
-  { id: "2", name: "General Campaign" },
-  { id: "3", name: "Ramadan Operations Fundraiser 2025" },
-  { id: "4", name: "2025 Spring Bake Sales" },
-];
+import { BackButton, SearchBar, PrimaryButton, FundraiserList } from "./components";
+import { PRESET_FUNDRAISERS } from "@/mock";
 
 export default function SelectFundraiser() {
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<string | null>("2");
 
   const data = useMemo(() => {
-    const s = q.trim().toLowerCase();
-    if (!s) return ALL;
-    return ALL.filter((f) => f.name.toLowerCase().includes(s));
+    const query = q.trim().toLowerCase();
+    if (!query) return PRESET_FUNDRAISERS;
+    return PRESET_FUNDRAISERS.filter(f => f.name.toLowerCase().includes(query));
   }, [q]);
 
   const handleContinue = () => {
     if (!selected) return;
-    const selectedFundraiser = ALL.find(f => f.id === selected);
+    const selectedFundraiser = PRESET_FUNDRAISERS.find(f => f.id === selected);
     router.push({
       pathname: "/(tabs)/select_fund",
       params: {

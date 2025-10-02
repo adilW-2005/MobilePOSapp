@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, router } from "expo-router";
 import { BackButton, DonationSummary, FeeToggle, PaymentButtons } from "./components";
@@ -41,12 +41,19 @@ export default function ConfirmPayment() {
     });
   };
 
+  const handleHeaderPress = () => {
+    router.push("/(tabs)/select_fundraiser");
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
       {/* Header */}
       <View className="px-4 pt-1 pb-2 flex-row items-center justify-between">
         <BackButton />
-        <Text className="text-xl text-slate-900">Select a Payment Method</Text>
+        <Pressable onPress={handleHeaderPress} className="flex-1 items-center mx-2">
+          <Text className="text-base text-slate-900 font-semibold">{fundraiserName}</Text>
+          <Text className="text-sm text-slate-600">{fundName}</Text>
+        </Pressable>
         <View className="w-6" />
       </View>
 

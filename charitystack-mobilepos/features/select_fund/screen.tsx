@@ -1,32 +1,36 @@
 import React, { useMemo, useState } from "react";
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
-import { BackButton, SearchBar, PrimaryButton, FundList, Fund } from "./components";
-
-const ALL_FUNDS: Fund[] = [
-  { id: "ops", name: "Masjid Operations" },
-  { id: "zakat", name: "Zakat" },
-  { id: "sadaqah", name: "Sadaqah" },
-  { id: "ramadan", name: "Ramadan" },
-];
+import { router, useLocalSearchParams } from "expo-router";
+import { BackButton, SearchBar, PrimaryButton, FundList } from "./components";
+import { PRESET_FUNDRAISERS } from "@/mock";
 
 export default function SelectFund() {
+  const { fundraiserId = "2", fundraiserName } = useLocalSearchParams<{
+    fundraiserId?: string;
+    fundraiserName?: string;
+  }>();
+
+  const fundraiser = PRESET_FUNDRAISERS.find(f => f.id === fundraiserId);
+  const funds = fundraiser?.funds || [];
+
   const [q, setQ] = useState("");
-  const [selectedId, setSelectedId] = useState<string | null>("ops"); // preselected per mock
+  const [selectedId, setSelectedId] = useState<string | null>(funds[0]?.id || null);
 
   const data = useMemo(() => {
-    const s = q.trim().toLowerCase();
-    if (!s) return ALL_FUNDS;
-    return ALL_FUNDS.filter((f) => f.name.toLowerCase().includes(s));
-  }, [q]);
+    const query = q.trim().toLowerCase();
+    if (!query) return funds;
+    return funds.filter(f => f.name.toLowerCase().includes(query));
+  }, [q, funds]);
 
   const handleContinue = () => {
     if (!selectedId) return;
-    const selectedFund = ALL_FUNDS.find(f => f.id === selectedId);
+    const selectedFund = funds.find(f => f.id === selectedId);
     router.push({
       pathname: "/(tabs)/enter_amount",
       params: {
+        fundraiserId: fundraiserId,
+        fundraiserName: fundraiserName || fundraiser?.name || "",
         fundId: selectedId,
         fundName: selectedFund?.name || ""
       }

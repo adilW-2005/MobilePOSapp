@@ -15,7 +15,7 @@ export function BottomSheet({
   onSelect,
 }: BottomSheetProps) {
   return (
-    <View className="absolute left-0 right-0 bottom-0 px-4 pb-6">
+    <View className="flex-1 px-4 pb-6">
       <View className="bg-white rounded-t-md border border-black/10 shadow-sm px-5 py-3.5">
         {/* Grabber */}
         <View className="items-center mb-2">

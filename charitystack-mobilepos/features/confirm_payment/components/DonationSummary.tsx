@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
+import { router } from "expo-router";
 
 function formatUSD(n: number) {
   return `$${n.toFixed(2)}`;
@@ -16,9 +17,16 @@ export function DonationSummary({
   fundName,
   amount,
 }: DonationSummaryProps) {
+  const handlePress = () => {
+    router.push("/(tabs)/select_fundraiser");
+  };
+
   return (
     <View className="px-4">
-      <View className="bg-white rounded-md border border-black/10 shadow-sm p-4">
+      <Pressable 
+        onPress={handlePress}
+        className="bg-white rounded-md border border-black/10 shadow-sm p-4"
+      >
         <View className="flex-row">
           <View className="flex-1">
             <Text className="text-base text-slate-900">{fundraiserName}</Text>
@@ -28,7 +36,7 @@ export function DonationSummary({
             {formatUSD(amount)}
           </Text>
         </View>
-      </View>
+      </Pressable>
     </View>
   );
 } 
