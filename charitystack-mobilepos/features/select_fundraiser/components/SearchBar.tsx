@@ -1,5 +1,6 @@
 import React from "react";
-import { TextInput } from "react-native";
+import { View, TextInput } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 interface SearchBarProps {
   value: string;
@@ -13,15 +14,15 @@ export function SearchBar({
   placeholder = "Search for Fundraiser",
 }: SearchBarProps) {
   return (
-    <TextInput
-      value={value}
-      onChangeText={onChangeText}
-      placeholder={placeholder}
-      placeholderTextColor="#6B7280"
-      className="
-        bg-slate-100 border border-black/10 rounded-md
-        px-3 py-3 text-base text-slate-900
-      "
-    />
+    <View className="flex-row items-center bg-slate-100 border border-black/10 rounded-md px-3 py-2.5">
+      <Ionicons name="search" size={20} color="#6B7280" />
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        placeholderTextColor="#6B7280"
+        className="flex-1 ml-2 text-base text-slate-900"
+      />
+    </View>
   );
 } 

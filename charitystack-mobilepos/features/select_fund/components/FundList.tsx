@@ -21,7 +21,7 @@ export function FundList({
         data={data}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingBottom: 24 }}
-        ItemSeparatorComponent={() => <View className="h-3" />}
+        ItemSeparatorComponent={() => <View className="h-4" />}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           const selected = item.id === selectedId;

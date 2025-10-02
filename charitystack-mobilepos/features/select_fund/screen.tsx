@@ -38,16 +38,16 @@ export default function SelectFund() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
+    <SafeAreaView className="flex-1 bg-slate-50">
       {/* Header */}
-      <View className="px-4 pt-1 pb-2 flex-row items-center justify-between">
+      <View className="px-4 pt-8 pb-8 flex-row items-center justify-between">
         <BackButton />
         <Text className="text-xl text-slate-900 font-semibold">Select a Fund</Text>
         <View className="w-6" />
       </View>
 
       {/* Search */}
-      <View className="px-4 pb-2">
+      <View className="px-4 pb-6">
         <SearchBar value={q} onChangeText={setQ} />
       </View>
 
