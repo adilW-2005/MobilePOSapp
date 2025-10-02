@@ -1,30 +1,42 @@
-import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useLocalSearchParams, router } from "expo-router";
+import React from "react";
+import { View, Pressable } from "react-native";
 import { BottomSheet, Frequency } from "./components";
 
-export default function FrequencySelector() {
-  const { value, returnTo } = useLocalSearchParams<{
-    value?: Frequency;
-    returnTo?: string; // e.g. "/(donations)/enter-amount"
-  }>();
+interface FrequencyModalProps {
+  visible: boolean;
+  selected: Frequency;
+  onSelect: (frequency: Frequency) => void;
+  onClose: () => void;
+}
 
-  const [selected, setSelected] = useState<Frequency>((value as Frequency) || "Daily");
+export function FrequencyModal({
+  visible,
+  selected,
+  onSelect,
+  onClose,
+}: FrequencyModalProps) {
+  if (!visible) return null;
 
-  function onSelect(next: Frequency) {
-    setSelected(next);
-    // Close the modal and return to the previous screen
-    router.dismiss();
-    // Note: In a real app, you'd pass the frequency back to the calling screen
-    // For now, we'll just close the modal
-  }
+  const handleSelect = (frequency: Frequency) => {
+    onSelect(frequency);
+    onClose();
+  };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <BottomSheet
-        selected={selected}
-        onSelect={onSelect}
+    <View className="absolute inset-0 z-50">
+      {/* Backdrop */}
+      <Pressable
+        className="absolute inset-0 bg-black/40"
+        onPress={onClose}
       />
-    </SafeAreaView>
+      
+      {/* Modal Content */}
+      <View className="flex-1 justify-end">
+        <BottomSheet
+          selected={selected}
+          onSelect={handleSelect}
+        />
+      </View>
+    </View>
   );
-}
+} 

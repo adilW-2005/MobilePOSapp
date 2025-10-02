@@ -9,7 +9,8 @@ import {
   ContinueButton,
   Key 
 } from "./components";
-import { FrequencyModal, Frequency } from "../frequency_selector/components";
+import { Frequency } from "../frequency_selector/components";
+import {FrequencyModal} from "../frequency_selector/modal"
 
 export default function EnterAmount() {
   // optionally receive from previous screen

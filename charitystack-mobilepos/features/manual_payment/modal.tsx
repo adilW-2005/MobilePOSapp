@@ -1,28 +1,51 @@
 import React, { useMemo, useState } from "react";
-import { KeyboardAvoidingView, Platform } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { router, useLocalSearchParams } from "expo-router";
+import { View, Pressable, KeyboardAvoidingView, Platform } from "react-native";
 import { BottomSheet } from "./components";
 
-export default function ManualPayment() {
-  const { amount, fundraiserName, fundName } = useLocalSearchParams<{
-    amount?: string;
-    fundraiserName?: string;
-    fundName?: string;
-  }>();
+interface ManualPaymentModalProps {
+  visible: boolean;
+  amount?: string;
+  fundraiserName?: string;
+  fundName?: string;
+  onConfirm: (paymentData: {
+    card: string;
+    exp: string;
+    cvc: string;
+    zip: string;
+  }) => void;
+  onClose: () => void;
+}
 
+export function ManualPaymentModal({
+  visible,
+  amount,
+  fundraiserName,
+  fundName,
+  onConfirm,
+  onClose,
+}: ManualPaymentModalProps) {
   const [card, setCard] = useState("");
-  const [exp, setExp] = useState("");   // MM/YY
+  const [exp, setExp] = useState("");
   const [cvc, setCvc] = useState("");
   const [zip, setZip] = useState("");
 
-  // light input helpers
+  // Reset form when modal opens
+  React.useEffect(() => {
+    if (visible) {
+      setCard("");
+      setExp("");
+      setCvc("");
+      setZip("");
+    }
+  }, [visible]);
+
+  // Input helpers
   function onChangeCard(t: string) {
-    // strip non-digits & group 4-4-4-4 visually
     const d = t.replace(/\D/g, "").slice(0, 19);
     const groups = d.match(/.{1,4}/g) ?? [];
     setCard(groups.join(" "));
   }
+
   function onChangeExp(t: string) {
     const d = t.replace(/\D/g, "").slice(0, 4);
     setExp(d.length > 2 ? d.slice(0, 2) + "/" + d.slice(2) : d);
@@ -32,43 +55,47 @@ export default function ManualPayment() {
     const expOk = /^((0[1-9])|(1[0-2]))\/\d{2}$/.test(exp);
     const cvcOk = /^\d{3,4}$/.test(cvc);
     const zipOk = zip.trim().length >= 3;
-    const cardOk = card.replace(/\s/g, "").length >= 13; // not full Luhn, just min sanity
+    const cardOk = card.replace(/\s/g, "").length >= 13;
     return expOk && cvcOk && zipOk && cardOk;
   }, [card, exp, cvc, zip]);
 
   const handleConfirm = () => {
-    // TODO: send to payment gateway tokenization   
-    router.dismiss();
-    router.push({
-      pathname: "/(tabs)/contact_info",
-      params: {
-        amount: String(amount),
-        fundraiserName: String(fundraiserName),
-        fundName: String(fundName),
-        paymentMethod: "manual_card"
-      }
-    });
+    if (valid) {
+      onConfirm({ card, exp, cvc, zip });
+      onClose();
+    }
   };
 
+  if (!visible) return null;
+
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        className="flex-1 px-4 pb-6"
-      >
-        <BottomSheet
-          card={card}
-          onChangeCard={onChangeCard}
-          exp={exp}
-          onChangeExp={onChangeExp}
-          cvc={cvc}
-          onChangeCvc={(t) => setCvc(t.replace(/\D/g, "").slice(0, 4))}
-          zip={zip}
-          onChangeZip={setZip}
-          valid={valid}
-          onConfirm={handleConfirm}
-        />
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    <View className="absolute inset-0 z-50">
+      {/* Backdrop */}
+      <Pressable
+        className="absolute inset-0 bg-black/40"
+        onPress={onClose}
+      />
+      
+      {/* Modal Content */}
+      <View className="flex-1 justify-end">
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          className="px-4 pb-6"
+        >
+          <BottomSheet
+            card={card}
+            onChangeCard={onChangeCard}
+            exp={exp}
+            onChangeExp={onChangeExp}
+            cvc={cvc}
+            onChangeCvc={(t) => setCvc(t.replace(/\D/g, "").slice(0, 4))}
+            zip={zip}
+            onChangeZip={setZip}
+            valid={valid}
+            onConfirm={handleConfirm}
+          />
+        </KeyboardAvoidingView>
+      </View>
+    </View>
   );
-}
+} 

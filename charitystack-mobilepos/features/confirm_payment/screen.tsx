@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, router } from "expo-router";
 import { BackButton, DonationSummary, FeeToggle, PaymentButtons } from "./components";
-import { ManualPaymentModal } from "../manual_payment/components";
+import { ManualPaymentModal } from "../manual_payment/modal";
 
 export default function ConfirmPayment() {
   const { amount = "5", fundraiserName = "General Campaign", fundName = "Masjid Operations" } =
