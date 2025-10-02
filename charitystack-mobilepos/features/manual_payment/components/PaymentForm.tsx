@@ -32,7 +32,7 @@ export function PaymentForm({
           onChangeText={onChangeCard}
           keyboardType="number-pad"
           placeholder=""
-          className="bg-white border border-black/10 rounded-lg px-3 py-2.5 text-base text-slate-900"
+          className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-2.5 text-base text-slate-900"
         />
       </View>
 
@@ -46,7 +46,7 @@ export function PaymentForm({
             keyboardType="number-pad"
             placeholder=""
             maxLength={5}
-            className="bg-white border border-black/10 rounded-lg px-3 py-2.5 text-base text-slate-900"
+            className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-2.5 text-base text-slate-900"
           />
         </View>
         <View className="flex-1">
@@ -57,7 +57,7 @@ export function PaymentForm({
             keyboardType="number-pad"
             placeholder=""
             maxLength={4}
-            className="bg-white border border-black/10 rounded-lg px-3 py-2.5 text-base text-slate-900"
+            className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-2.5 text-base text-slate-900"
           />
         </View>
         <View className="flex-1">
@@ -67,7 +67,7 @@ export function PaymentForm({
             onChangeText={onChangeZip}
             keyboardType="default"
             placeholder=""
-            className="bg-white border border-black/10 rounded-lg px-3 py-2.5 text-base text-slate-900"
+            className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-2.5 text-base text-slate-900"
           />
         </View>
       </View>

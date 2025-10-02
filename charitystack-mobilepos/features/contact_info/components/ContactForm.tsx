@@ -47,7 +47,7 @@ export function ContactForm({
             value={first}
             onChangeText={setFirst}
             placeholder=""
-            className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
+            className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-3 text-base text-slate-900"
           />
         </View>
         <View className="flex-1">
@@ -56,7 +56,7 @@ export function ContactForm({
             value={last}
             onChangeText={setLast}
             placeholder=""
-            className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
+            className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-3 text-base text-slate-900"
           />
         </View>
       </View>
@@ -68,7 +68,7 @@ export function ContactForm({
           value={organization}
           onChangeText={setOrganization}
           placeholder=""
-          className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
+          className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-3 text-base text-slate-900"
         />
       </View>
 
@@ -90,7 +90,7 @@ export function ContactForm({
             keyboardType="email-address"
             autoCapitalize="none"
             placeholder=""
-            className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
+            className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-3 text-base text-slate-900"
           />
         </View>
         <View className="flex-1">
@@ -100,7 +100,7 @@ export function ContactForm({
             onChangeText={setPhone}
             keyboardType="phone-pad"
             placeholder=""
-            className="bg-white border border-black/10 rounded-lg px-3 py-3 text-base text-slate-900"
+            className="bg-white border border-black/10 rounded-lg shadow-sm px-3 py-3 text-base text-slate-900"
           />
         </View>
       </View>

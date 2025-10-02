@@ -15,7 +15,7 @@ export function ConfirmButton({
       disabled={disabled}
       onPress={onPress}
       className={[
-        "h-11 mx-4 mt-2 mb-6 rounded-md items-center justify-center",
+        "h-11 mx-4 mt-2 mb-6 rounded-md shadow-sm items-center justify-center",
         disabled ? "bg-blue-600/50" : "bg-blue-600",
       ].join(" ")}
       style={({ pressed }) => (pressed && !disabled ? { opacity: 0.9 } : undefined)}

@@ -16,7 +16,7 @@ export function FrequencyOption({
     <Pressable
       onPress={onSelect}
       className={[
-        "h-16 px-6 py-4 rounded-lg border border-black/10 justify-center",
+        "h-16 px-6 py-4 rounded-lg border border-black/10 shadow-sm justify-center",
         selected ? "bg-blue-100" : "bg-white",
       ].join(" ")}
     >
