@@ -41,28 +41,23 @@ export default function ConfirmPayment() {
     });
   };
 
-  const handleHeaderPress = () => {
-    router.push("/(tabs)/select_fundraiser");
-  };
-
   return (
-    <SafeAreaView className="flex-1 bg-slate-50" edges={['top', 'left', 'right']}>
+    <SafeAreaView className="flex-1 bg-slate-50">
       {/* Header */}
-      <View className="px-4 pt-1 pb-2 flex-row items-center justify-between">
+      <View className="px-4 pt-8 pb-8 flex-row items-center justify-between">
         <BackButton />
-        <Pressable onPress={handleHeaderPress} className="flex-1 items-center mx-2">
-          <Text className="text-base text-slate-900 font-semibold">{fundraiserName}</Text>
-          <Text className="text-sm text-slate-600">{fundName}</Text>
-        </Pressable>
+        <Text className="text-xl text-slate-900 font-semibold">Select a Payment Method</Text>
         <View className="w-6" />
       </View>
 
       {/* Summary card */}
-      <DonationSummary
-        fundraiserName={String(fundraiserName)}
-        fundName={String(fundName)}
-        amount={baseAmount}
-      />
+      <View className="mt-6">
+        <DonationSummary
+          fundraiserName={String(fundraiserName)}
+          fundName={String(fundName)}
+          amount={baseAmount}
+        />
+      </View>
 
       {/* Fee toggle + total */}
       <FeeToggle

@@ -29,14 +29,14 @@ export function BottomSheet({
   onConfirm,
 }: BottomSheetProps) {
   return (
-    <View className="bg-white rounded-t-md border border-black/10 shadow-sm px-5 py-3.5">
+    <View className="bg-white rounded-t-2xl px-5 py-4 pb-8">
       {/* Grabber */}
-      <View className="items-center mb-2">
+      <View className="items-center mb-3">
         <View className="w-16 h-[5px] bg-black/80 rounded-full" />
       </View>
 
       {/* Title */}
-      <Text className="text-center text-xl text-slate-900 mb-3">Manual Payment</Text>
+      <Text className="text-center text-xl text-slate-900 mb-4">Manual Payment</Text>
 
       <PaymentForm
         card={card}

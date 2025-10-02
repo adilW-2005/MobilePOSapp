@@ -80,7 +80,6 @@ export function ManualPaymentModal({
       <View className="flex-1 justify-end">
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : undefined}
-          className="px-4 pb-6"
         >
           <BottomSheet
             card={card}

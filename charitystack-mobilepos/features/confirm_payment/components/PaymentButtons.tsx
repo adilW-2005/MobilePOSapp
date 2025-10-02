@@ -36,7 +36,7 @@ export function PaymentButtons({
       {/* CTA: Tap to Pay */}
       <Pressable
         onPress={handleTapToPay}
-        className="h-11 mx-4 mb-2 rounded-md bg-blue-600 items-center justify-center shadow-sm"
+        className="h-11 mx-4 mb-3 rounded-md bg-blue-600 items-center justify-center shadow-sm"
         style={({ pressed }) => (pressed ? { opacity: 0.9 } : undefined)}
       >
         <Text className="text-white text-base font-semibold">Tap to Pay</Text>
@@ -45,7 +45,7 @@ export function PaymentButtons({
       {/* Secondary link */}
       <Pressable
         onPress={handleManualPayment}
-        className="items-center mb-3"
+        className="items-center mb-8"
       >
         <Text className="text-blue-700">Manual Payment</Text>
       </Pressable>

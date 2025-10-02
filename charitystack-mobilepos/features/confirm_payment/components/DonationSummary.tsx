@@ -25,14 +25,14 @@ export function DonationSummary({
     <View className="px-4">
       <Pressable 
         onPress={handlePress}
-        className="bg-white rounded-md border border-black/10 shadow-sm p-4"
+        className="bg-white rounded-lg border border-black/10 shadow-sm p-5"
       >
-        <View className="flex-row">
+        <View className="flex-row items-center">
           <View className="flex-1">
-            <Text className="text-base text-slate-900">{fundraiserName}</Text>
-            <Text className="text-xs text-slate-500 mt-0.5">{fundName}</Text>
+            <Text className="text-lg text-slate-900">{fundraiserName}</Text>
+            <Text className="text-sm text-slate-500 mt-1">{fundName}</Text>
           </View>
-          <Text className="text-4xl text-slate-900 font-semibold">
+          <Text className="text-5xl text-slate-900 font-semibold">
             {formatUSD(amount)}
           </Text>
         </View>

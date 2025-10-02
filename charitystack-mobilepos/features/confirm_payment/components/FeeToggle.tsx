@@ -19,7 +19,7 @@ export function FeeToggle({
   total,
 }: FeeToggleProps) {
   return (
-    <View className="px-4 mt-6">
+    <View className="px-4 mt-8">
       <Pressable
         onPress={onToggle}
         className="rounded-md"
